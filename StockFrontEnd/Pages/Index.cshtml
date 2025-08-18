@@ -1,0 +1,90 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Stock Portfolio";
+}
+
+<div class="container">
+    <h1 class="my-4">Stock Portfolio</h1>
+
+    <!-- Summary Section -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Total Portfolio Value</h5>
+                    <p class="card-text fs-4">@Model.TotalValue.ToString("C")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Highest Fluctuation</h5>
+                    @if (Model.HighestFluctuationStock != null)
+                    {
+                        var change = Model.HighestFluctuationStock.Change;
+                        var colorClass = change > 0 ? "text-success" : (change < 0 ? "text-danger" : "text-dark");
+                        <p class="card-text fs-4">
+                            @Model.HighestFluctuationStock.Name: <span class="@colorClass">@change.ToString("C")</span>
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">No fluctuation data available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Stock Form -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Update Stock Price
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="stockId" class="form-label">Stock ID</label>
+                        <input type="number" name="id" id="stockId" class="form-control" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="newPrice" class="form-label">New Price</label>
+                        <input type="text" name="price" id="newPrice" class="form-control" required />
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Update Price</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Portfolio Table -->
+    <h2>Current Holdings</h2>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Change</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stock in Model.Portfolio)
+            {
+                var changeColor = stock.Change > 0 ? "text-success" : (stock.Change < 0 ? "text-danger" : "");
+                <tr>
+                    <td>@stock.Id</td>
+                    <td>@stock.Name</td>
+                    <td>@stock.Price.ToString("C")</td>
+                    <td class="@changeColor">@stock.Change.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
