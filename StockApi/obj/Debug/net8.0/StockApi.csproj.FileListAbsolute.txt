@@ -31,3 +31,4 @@ C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockApi\obj\Debug\net8.0\re
 C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockApi\obj\Debug\net8.0\StockApi.pdb
 C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockApi\obj\Debug\net8.0\StockApi.genruntimeconfig.cache
 C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockApi\obj\Debug\net8.0\ref\StockApi.dll
+C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockApi\obj\Debug\net8.0\StockApi.sourcelink.json

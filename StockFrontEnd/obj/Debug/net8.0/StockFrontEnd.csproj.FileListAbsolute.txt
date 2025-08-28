@@ -28,3 +28,4 @@ C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockFrontEnd\obj\Debug\net8
 C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockFrontEnd\obj\Debug\net8.0\StockFrontEnd.pdb
 C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockFrontEnd\obj\Debug\net8.0\StockFrontEnd.genruntimeconfig.cache
 C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockFrontEnd\obj\Debug\net8.0\ref\StockFrontEnd.dll
+C:\Users\dominick.crosbie\CascadeProjects\StockDemo\StockFrontEnd\obj\Debug\net8.0\StockFrontEnd.sourcelink.json
