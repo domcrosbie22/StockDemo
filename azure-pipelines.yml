@@ -1,0 +1,34 @@
+# Azure DevOps Pipeline for TestEngine
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'  # Use Windows for ReadyAPI/TestEngine
+
+variables:
+  # Store your TestEngine connection details as pipeline variables
+  testEngineUrl: 'http://localhost:8080'  # Change to your TestEngine URL
+  projectPath: 'tests/readyapi/StockDemo'  # Repository-relative path
+
+steps:
+- checkout: self
+  displayName: 'Checkout Repository'
+
+- task: TestEngine@1
+  displayName: 'Run ReadyAPI Tests'
+  inputs:
+    # Use repository-relative path instead of local machine path
+    filePath: '$(System.DefaultWorkingDirectory)/$(projectPath)'
+    testType: 'functionalTest'
+    testSuiteName: 'Data driven Test'
+    testCaseName: 'Day Trading Warnings'
+    
+    # TestEngine connection settings (add these)
+    serverUrl: 'http://localhost:8080/'
+    username: 'admin'     # Set as pipeline variable
+    password: 'password'     # Set as pipeline variable (secret)
+    
+    # Optional: Enable result publishing
+    publishTestResults: true
+    saveJUnitReport: true
+    junitReportFilename: 'readyapi-results.xml'
