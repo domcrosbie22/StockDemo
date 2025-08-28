@@ -22,7 +22,7 @@ steps:
 
 - task: SoapUIProForAzureDevOpsTask@2
   inputs:
-    testRunnerPath: 'C:\Program Files\SmartBear\ReadyAPI-3.61.0\bin\testrunner.bat'
+    testRunnerPath: 'https://github.com/domcrosbie22/StockDemo/tree/main/'
     project: 'https://github.com/domcrosbie22/StockDemo/tree/main/'
     rootFolder: '$(Common.TestResultsDirectory)'
     testSuite: 'Data-driven-Test'
