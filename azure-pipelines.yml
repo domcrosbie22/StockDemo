@@ -21,7 +21,7 @@ steps:
   displayName: 'Checkout Repository'
 - task: TestEngine@1
   inputs:
-    filePath: 'https://github.com/domcrosbie22/StockDemo/blob/main/settings.xml'
+    filePath: 'https://github.com/domcrosbie22/StockDemo/blob/main/Data-driven-Test/settings.xml'
     testType: 'functionalTest'
     testSuiteName: 'Data driven Test'
     testCaseName: 'Day Trading Warnings'
