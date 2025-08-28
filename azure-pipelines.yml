@@ -19,13 +19,23 @@ pool:
 steps:
 - checkout: self
   displayName: 'Checkout Repository'
-- task: TestEngine@1
+
+- task: SoapUIProForAzureDevOpsTask@2
   inputs:
-    filePath: 'https://github.com/domcrosbie22/StockDemo/tree/main/Data-driven-Test'
-    testType: 'functionalTest'
-    testSuiteName: 'Data driven Test'
-    testCaseName: 'Day Trading Warnings'
-    serverUrl: 'http://localhost:8080'
-    serverUsername: 'admin'
-    serverPassword: 'password'
+    testRunnerPath: 'C:\Program Files\SmartBear\ReadyAPI-3.61.0\bin\testrunner.bat'
+    project: 'https://github.com/domcrosbie22/StockDemo/tree/main/'
+    rootFolder: '$(Common.TestResultsDirectory)'
+    testSuite: 'Data-driven-Test'
+    testCase: 'Day-Trading-Warnings'
+    authenticationMethod: 'anonymous'
+
+# - task: TestEngine@1
+#   inputs:
+#     filePath: '
+#     testType: 'functionalTest'
+#     testSuiteName: 'Data driven Test'
+#     testCaseName: 'Day Trading Warnings'
+#     serverUrl: 'http://localhost:8080'
+#     serverUsername: 'admin'
+#     serverPassword: 'password'
 
