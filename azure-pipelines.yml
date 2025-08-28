@@ -1,6 +1,19 @@
 # Azure DevOps Pipeline for TestEngine
 trigger:
-- main
+  branches:
+    include:
+    - main
+    - develop
+    - feature/*
+    - release/*
+  paths:
+    include:
+    - src/*           # Trigger when source code changes
+    - tests/readyapi/* # Trigger when test files change
+    exclude:
+    - docs/*          # Don't trigger for documentation changes
+    - README.md
+
 
 pool:
   vmImage: 'windows-latest'  # Use Windows for ReadyAPI/TestEngine
@@ -14,6 +27,16 @@ steps:
 - checkout: self
   displayName: 'Checkout Repository'
 
+
+- task: TestEngine@1
+  inputs:
+    filePath: 'https://github.com/domcrosbie22/StockDemo/blob/main/azure-pipelines.yml'
+    testType: 'functionalTest'
+    testSuiteName: 'Data driven Test'
+    testCaseName: 'Day Trading Warnings'
+    serverUrl: 'http://localhost:8080'
+    serverUsername: 'admin'
+    serverPassword: 'password'
 - task: TestEngine@1
   displayName: 'Run ReadyAPI Tests'
   inputs:
