@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase xmlns:con="http://eviware.com/soapui/config" id="1c341ad2-2739-4f47-b80e-dad065e1cfed" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="Functional Tests" searchProperties="true" timeout="0">
+  <con:settings>
+    <con:setting id="IncludeOverview">true</con:setting>
+    <con:setting id="IncludeResults">true</con:setting>
+    <con:setting id="FlowLayout">false</con:setting>
+    <con:setting id="ErrorDetails">true</con:setting>
+    <con:setting id="IncludeCoverage">true</con:setting>
+    <con:setting id="1c341ad2-2739-4f47-b80e-dad065e1cfedfileName">Functional-Tests</con:setting>
+  </con:settings>
+  <con:testStep type="datasource" name="Demo Source" id="e7fbad11-c898-460e-b6fb-7602a296b370">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+      <con:dataSource type="Excel">
+        <con:configuration>
+          <file>C:/Users/dominick.crosbie/Downloads/stock_price_updates2.xlsx</file>
+          <worksheet/>
+          <cell>A1</cell>
+          <ignoreEmpty>false</ignoreEmpty>
+          <evaluateFormulas>false</evaluateFormulas>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>Row</con:property>
+      <con:property>StockId</con:property>
+      <con:property>StockName</con:property>
+      <con:property>UpdatedPrice</con:property>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:stopDatasourceExhausted>false</con:stopDatasourceExhausted>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="restrequest" name="REST Request" id="914f1a9a-e804-4b2c-ae8d-1b272cf5a39a">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" service="StockDemo" resourcePath="/portfolio/{id}" methodName="POST Change" xsi:type="con:RestRequestStep">
+      <con:restRequest name="REST Request" id="d36358e9-9779-4f90-8f1f-150b88dbd7a2" mediaType="application/json" postQueryString="false">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:endpoint>http://localhost:5212</con:endpoint>
+        <con:request>{ 
+	"price" : ${Demo Source#UpdatedPrice}
+}
+</con:request>
+        <con:originalUri>http://localhost/portfolio/2</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="d8b8bd91-f068-4958-bf3f-15bad0e35521" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration>
+            <codes>200</codes>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="Response SLA Assertion" id="b93c993a-ae0f-45d9-b521-81e56e15917a" name="Response SLA">
+          <con:configuration>
+            <SLA>200</SLA>
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters>
+          <con:entry key="id" value="${Demo Source#StockId}"/>
+        </con:parameters>
+        <con:parameterOrder>
+          <con:entry>id</con:entry>
+        </con:parameterOrder>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="Data Source Loop" id="103d8fc1-3ded-4d13-9584-28e117c2cf8a">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>Demo Source</dataSourceStep>
+      <targetStep>REST Request</targetStep>
+      <discardResults>true</discardResults>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>e7fbad11-c898-460e-b6fb-7602a296b370</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>103d8fc1-3ded-4d13-9584-28e117c2cf8a</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

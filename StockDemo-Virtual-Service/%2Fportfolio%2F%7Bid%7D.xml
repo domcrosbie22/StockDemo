@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:restMockAction xmlns:con="http://eviware.com/soapui/config" name="/portfolio/{id}" method="GET" resourcePath="/portfolio/{id}" id="29e45fe1-064c-4e12-b09a-af255a2d9545">
+  <con:settings>
+    <con:setting id="29e45fe1-064c-4e12-b09a-af255a2d9545fileName">%2Fportfolio%2F%7Bid%7D</con:setting>
+  </con:settings>
+  <con:dispatchStyle>SEQUENCE</con:dispatchStyle>
+  <con:dispatchConfig/>
+  <con:dispatchXPath/>
+  <con:requestRouteScript/>
+  <con:response name="Response 1" id="88605eca-7f52-44a4-8f60-f28d188c3c67" httpResponseStatus="200" dataSource="">
+    <con:settings/>
+  </con:response>
+</con:restMockAction>

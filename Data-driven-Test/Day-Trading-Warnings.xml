@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase xmlns:con="http://eviware.com/soapui/config" id="9ab4223e-39ee-4570-a766-7d0b5129de0e" discardOkResults="false" failOnError="false" failTestCaseOnErrors="true" keepSession="false" name="Day Trading Warnings" searchProperties="true" timeout="0">
+  <con:settings>
+    <con:setting id="IncludeOverview">true</con:setting>
+    <con:setting id="IncludeResults">true</con:setting>
+    <con:setting id="FlowLayout">false</con:setting>
+    <con:setting id="ErrorDetails">true</con:setting>
+    <con:setting id="IncludeCoverage">true</con:setting>
+    <con:setting id="9ab4223e-39ee-4570-a766-7d0b5129de0efileName">Day-Trading-Warnings</con:setting>
+  </con:settings>
+  <con:testStep type="restrequest" name="GET Base Price" id="70b6192f-5877-4661-8b86-73a2c58b2d6e">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" service="StockDemo" resourcePath="/portfolio/{id}" methodName="GET Stocks" xsi:type="con:RestRequestStep">
+      <con:restRequest name="GET Base Price" id="756fb4ba-f015-4a68-88af-432153da17d4" mediaType="application/json">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:endpoint>http://localhost:5212/</con:endpoint>
+        <con:request/>
+        <con:originalUri>http://localhost/portfolio</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="4797c65b-0866-4582-9197-00ca29fad1a9" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration>
+            <codes>200</codes>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="Response SLA Assertion" id="79a602aa-38b9-423b-85ac-2ff1db7b53b3" name="Response SLA">
+          <con:configuration>
+            <SLA>200</SLA>
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters/>
+        <con:parameterOrder>
+          <con:entry>id</con:entry>
+        </con:parameterOrder>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="transfer" name="PropertyTransfer 1" id="bcb832bf-3754-4247-9ad5-3c44a339c901">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+      <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false">
+        <con:name>Microsoft Price</con:name>
+        <con:sourceType>Response</con:sourceType>
+        <con:sourceStep>GET Base Price</con:sourceStep>
+        <con:sourcePath>$[0]['price']</con:sourcePath>
+        <con:targetType>Base Microsoft Price</con:targetType>
+        <con:targetStep>Properties</con:targetStep>
+        <con:targetPath/>
+        <con:type>JSONPATH</con:type>
+        <con:upgraded>true</con:upgraded>
+      </con:transfers>
+      <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false">
+        <con:name>Apple Price</con:name>
+        <con:sourceType>Response</con:sourceType>
+        <con:sourceStep>GET Base Price</con:sourceStep>
+        <con:sourcePath>$[1]['price']</con:sourcePath>
+        <con:targetType>Base Apple Price</con:targetType>
+        <con:targetStep>Properties</con:targetStep>
+        <con:targetPath/>
+        <con:type>JSONPATH</con:type>
+        <con:upgraded>true</con:upgraded>
+      </con:transfers>
+      <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false">
+        <con:name>Google Price</con:name>
+        <con:sourceType>Response</con:sourceType>
+        <con:sourceStep>GET Base Price</con:sourceStep>
+        <con:sourcePath>$[2]['price']</con:sourcePath>
+        <con:targetType>Base Google Price</con:targetType>
+        <con:targetStep>Properties</con:targetStep>
+        <con:targetPath/>
+        <con:type>JSONPATH</con:type>
+        <con:upgraded>true</con:upgraded>
+      </con:transfers>
+      <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false">
+        <con:name>Amazon Price</con:name>
+        <con:sourceType>Response</con:sourceType>
+        <con:sourceStep>GET Base Price</con:sourceStep>
+        <con:sourcePath>$[3]['price']</con:sourcePath>
+        <con:targetType>Base Amazon Price</con:targetType>
+        <con:targetStep>Properties</con:targetStep>
+        <con:targetPath/>
+        <con:type>JSONPATH</con:type>
+        <con:upgraded>true</con:upgraded>
+      </con:transfers>
+      <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false">
+        <con:name>Tesla Price</con:name>
+        <con:sourceType>Response</con:sourceType>
+        <con:sourceStep>GET Base Price</con:sourceStep>
+        <con:sourcePath>$[4]['price']</con:sourcePath>
+        <con:targetType>Base Tesla Price</con:targetType>
+        <con:targetStep>Properties</con:targetStep>
+        <con:targetPath/>
+        <con:type>JSONPATH</con:type>
+        <con:upgraded>true</con:upgraded>
+      </con:transfers>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasource" name="CSB" id="a8692165-4d71-475e-bd04-6f186ab0e8da">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:DataSourceStep">
+      <con:dataSource type="Excel">
+        <con:configuration>
+          <file>C:/Users/dominick.crosbie/Downloads/stock_price_updates2.xlsx</file>
+          <worksheet/>
+          <cell>A1</cell>
+          <ignoreEmpty>false</ignoreEmpty>
+          <evaluateFormulas>false</evaluateFormulas>
+        </con:configuration>
+      </con:dataSource>
+      <con:shared>true</con:shared>
+      <con:restartShared>true</con:restartShared>
+      <con:property>Row</con:property>
+      <con:property>StockId</con:property>
+      <con:property>StockName</con:property>
+      <con:property>UpdatedPrice</con:property>
+      <con:startRow>2</con:startRow>
+      <con:endRow/>
+      <con:recordsPerIteration>1</con:recordsPerIteration>
+      <con:completeLastOperation>true</con:completeLastOperation>
+      <con:trimValues>false</con:trimValues>
+      <con:entitizeValues>false</con:entitizeValues>
+      <con:restartOnRun>true</con:restartOnRun>
+      <con:expandProperties>false</con:expandProperties>
+      <con:stopDatasourceExhausted>false</con:stopDatasourceExhausted>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="restrequest" name="REST Request" id="67424aa9-b732-4d38-9068-a6b26446e9e2">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" service="StockDemo" resourcePath="/portfolio/{id}" methodName="POST Change" xsi:type="con:RestRequestStep">
+      <con:restRequest name="REST Request" id="d36358e9-9779-4f90-8f1f-150b88dbd7a2" mediaType="application/json" postQueryString="false">
+        <con:settings>
+          <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+        </con:settings>
+        <con:endpoint>http://localhost:5212</con:endpoint>
+        <con:request>{ 
+	"price" : ${CSB#UpdatedPrice}
+}
+</con:request>
+        <con:originalUri>http://localhost/portfolio/2</con:originalUri>
+        <con:assertion type="Valid HTTP Status Codes" id="d8b8bd91-f068-4958-bf3f-15bad0e35521" name="Valid HTTP Status Codes">
+          <con:settings/>
+          <con:configuration>
+            <codes>200</codes>
+          </con:configuration>
+        </con:assertion>
+        <con:assertion type="Response SLA Assertion" id="b93c993a-ae0f-45d9-b521-81e56e15917a" name="Response SLA">
+          <con:configuration>
+            <SLA>200</SLA>
+          </con:configuration>
+        </con:assertion>
+        <con:credentials>
+          <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+          <con:authType>No Authorization</con:authType>
+        </con:credentials>
+        <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+        <con:parameters>
+          <con:entry key="id" value="${CSB#StockId}"/>
+        </con:parameters>
+        <con:parameterOrder>
+          <con:entry>id</con:entry>
+        </con:parameterOrder>
+      </con:restRequest>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="transfer" name="PropertyTransfer 2" id="f8619df0-b20b-44ac-985f-d9d20620f88e">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertyTransfersStep">
+      <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="true" entitize="false" ignoreEmpty="false" transferChildNodes="false">
+        <con:name>price</con:name>
+        <con:sourceType>Response</con:sourceType>
+        <con:sourceStep>REST Request</con:sourceStep>
+        <con:sourcePath>$['price']</con:sourcePath>
+        <con:targetType>CurrentPrice</con:targetType>
+        <con:targetStep>Properties</con:targetStep>
+        <con:targetPath/>
+        <con:type>JSONPATH</con:type>
+        <con:upgraded>true</con:upgraded>
+      </con:transfers>
+      <con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false">
+        <con:name>stock_id</con:name>
+        <con:sourceType>Response</con:sourceType>
+        <con:sourceStep>REST Request</con:sourceStep>
+        <con:sourcePath>$['id']</con:sourcePath>
+        <con:targetType>Selected Stock Id</con:targetType>
+        <con:targetStep>Properties</con:targetStep>
+        <con:type>JSONPATH</con:type>
+        <con:upgraded>true</con:upgraded>
+      </con:transfers>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="properties" name="Properties" id="c9256ce1-79d7-4247-87b4-84ed5efee109">
+    <con:settings/>
+    <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:PropertiesStep" saveFirst="true">
+      <con:properties>
+        <con:property>
+          <con:name>Base Microsoft Price</con:name>
+          <con:value>306.05</con:value>
+        </con:property>
+        <con:property>
+          <con:name>CurrentPrice</con:name>
+          <con:value>2801.62</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Selected Stock Id</con:name>
+          <con:value>3</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Base Apple Price</con:name>
+          <con:value>166.55</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Base Amazon Price</con:name>
+          <con:value>3396.82</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Base Tesla Price</con:name>
+          <con:value>748.05</con:value>
+        </con:property>
+        <con:property>
+          <con:name>Base Google Price</con:name>
+          <con:value>2801.62</con:value>
+        </con:property>
+      </con:properties>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="groovy" name="Check P &amp; L" id="3c5614b7-ee21-45bc-95f5-b95c96ffd65d">
+    <con:settings/>
+    <con:config>
+      <script>// Add comprehensive logging to debug the issue
+log.info("=== DEBUG: Starting price variance check ===")
+
+def currentPrice = context.expand('${Properties#CurrentPrice}') as Double
+def baseMicrosoftPrice = context.expand('${Properties#Base Microsoft Price}') as Double
+def baseApplePrice = context.expand('${Properties#Base Apple Price}') as Double
+def baseGooglePrice = context.expand('${Properties#Base Google Price}') as Double
+def baseAmazonPrice = context.expand('${Properties#Base Amazon Price}') as Double
+def baseTeslaPrice = context.expand('${Properties#Base Tesla Price}') as Double
+def selectedStockId = context.expand('${Properties#Selected Stock Id}')
+
+// Debug: Log all retrieved values
+log.info("Current Price: ${currentPrice}")
+log.info("Selected Stock ID: '${selectedStockId}'")
+log.info("Base Prices - MS: ${baseMicrosoftPrice}, Apple: ${baseApplePrice}, Google: ${baseGooglePrice}, Amazon: ${baseAmazonPrice}, Tesla: ${baseTeslaPrice}")
+
+def basePrice = 0.0
+def stockName = ""
+
+// Determine which base price to use based on Selected Stock Id
+if (selectedStockId == '1') {
+    basePrice = baseMicrosoftPrice
+    stockName = "Microsoft"
+} else if (selectedStockId == '2') {
+    basePrice = baseApplePrice
+    stockName = "Apple"
+} else if (selectedStockId == '3') {
+    basePrice = baseGooglePrice
+    stockName = "Google"
+} else if (selectedStockId == '4') {
+    basePrice = baseAmazonPrice
+    stockName = "Amazon"
+} else if (selectedStockId == '5') {
+    basePrice = baseTeslaPrice
+    stockName = "Tesla"
+} else {
+    return // Exit gracefully instead of assert
+}
+
+// Calculate variance
+def variance = Math.abs((currentPrice - basePrice) / basePrice)
+def variancePercentage = (variance * 100).round(2)
+
+log.info("Variance calculation: ${variance} (${variancePercentage}%)")
+log.info("Threshold check: ${variance} > 0.10 = ${variance > 0.10}")
+
+if (variance > 0.10) {
+    log.info("Variance exceeded threshold - sending Slack alert")
+    
+    // Your Slack Webhook URL
+    def slackWebhookUrl = 'https://hooks.slack.com/triggers/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'
+    
+    // Simplified message format for testing
+    def message = [
+        "text": "🚨 STOCK ALERT: ${stockName} price variance is ${variancePercentage}% (Base: \$${basePrice}, Current: \$${currentPrice})",
+        "stock": stockName,
+        "variance": "${variancePercentage}%",
+        "base_price": "\$${basePrice}",
+        "current_price": "\$${currentPrice}",
+        "alert_message": "Price variance exceeded 10% threshold"
+    ]
+    
+    // Send webhook
+    try {
+        def json = new groovy.json.JsonBuilder(message)
+        log.info("Sending JSON: ${json.toString()}")
+        
+        def connection = new URL(slackWebhookUrl).openConnection()
+        connection.setRequestMethod("POST")
+        connection.setRequestProperty("Content-Type", "application/json")
+        connection.setDoOutput(true)
+        
+        def writer = new OutputStreamWriter(connection.getOutputStream())
+        writer.write(json.toString())
+        writer.flush()
+        writer.close()
+        
+        def responseCode = connection.getResponseCode()
+        def responseMessage = connection.getResponseMessage()
+        
+        log.info("HTTP Response Code: ${responseCode}")
+        log.info("HTTP Response Message: ${responseMessage}")
+        
+        if (responseCode == 200) {
+            log.info("✅ Slack alert sent successfully for ${stockName}")
+        } else {
+            log.error("❌ Failed to send Slack alert. Response code: ${responseCode}, Message: ${responseMessage}")
+            
+            // Try to read error response
+            try {
+                def errorStream = connection.getErrorStream()
+                if (errorStream) {
+                    def errorResponse = errorStream.text
+                    log.error("Error response body: ${errorResponse}")
+                }
+            } catch (Exception e2) {
+                log.error("Could not read error response: ${e2.message}")
+            }
+        }
+    } catch (Exception e) {
+        log.error("❌ Exception sending Slack webhook: ${e.message}")
+        log.error("Exception type: ${e.class.name}")
+        e.printStackTrace()
+    }
+    
+    // Fail the test after sending the webhook
+    assert false : "STOCK ALERT: ${stockName} price variance is ${variancePercentage}%"
+    
+} else {
+    log.info("✅ Variance within acceptable range: ${variancePercentage}%")
+}
+
+log.info("=== DEBUG: Completed price variance check ===")</script>
+    </con:config>
+  </con:testStep>
+  <con:testStep type="datasourceloop" name="Iteration" id="aef1d7a3-c578-4032-9839-d81583cb4c50">
+    <con:settings/>
+    <con:config>
+      <dataSourceStep>CSB</dataSourceStep>
+      <targetStep>REST Request</targetStep>
+      <discardResults>false</discardResults>
+    </con:config>
+  </con:testStep>
+  <con:properties/>
+  <con:reportParameters/>
+  <con:breakPoints>
+    <con:testStepId>70b6192f-5877-4661-8b86-73a2c58b2d6e</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>bcb832bf-3754-4247-9ad5-3c44a339c901</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>a8692165-4d71-475e-bd04-6f186ab0e8da</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>67424aa9-b732-4d38-9068-a6b26446e9e2</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>f8619df0-b20b-44ac-985f-d9d20620f88e</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>c9256ce1-79d7-4247-87b4-84ed5efee109</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>3c5614b7-ee21-45bc-95f5-b95c96ffd65d</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+  <con:breakPoints>
+    <con:testStepId>aef1d7a3-c578-4032-9839-d81583cb4c50</con:testStepId>
+    <con:status>NONE</con:status>
+    <con:properties/>
+  </con:breakPoints>
+</con:testCase>

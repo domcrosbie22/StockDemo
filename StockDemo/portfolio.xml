@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://eviware.com/soapui/config" name="portfolio" path="/portfolio/{id}" id="62e5a6b9-6c10-437f-81f0-fb6bfc22282e">
+  <con:settings>
+    <con:setting id="62e5a6b9-6c10-437f-81f0-fb6bfc22282efileName">portfolio</con:setting>
+  </con:settings>
+  <con:parameters>
+    <con:parameter>
+      <con:name>id</con:name>
+      <con:style>TEMPLATE</con:style>
+    </con:parameter>
+  </con:parameters>
+  <con:method name="GET Stocks" id="d2ca88a3-7c3c-4752-9b43-c43b573943a6" method="GET">
+    <con:settings/>
+    <con:parameters/>
+    <con:request name="Request 1" id="756fb4ba-f015-4a68-88af-432153da17d4" mediaType="application/json">
+      <con:settings>
+        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+      </con:settings>
+      <con:endpoint>http://localhost:5212/</con:endpoint>
+      <con:request/>
+      <con:originalUri>http://localhost/portfolio</con:originalUri>
+      <con:credentials>
+        <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+        <con:authType>No Authorization</con:authType>
+      </con:credentials>
+      <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+      <con:parameters/>
+      <con:parameterOrder>
+        <con:entry>id</con:entry>
+      </con:parameterOrder>
+    </con:request>
+  </con:method>
+  <con:method name="POST Change" id="b98597bb-06bf-4c57-9ca4-17039346a639" method="POST">
+    <con:settings/>
+    <con:parameters/>
+    <con:request name="Request 1" id="d36358e9-9779-4f90-8f1f-150b88dbd7a2" mediaType="application/json" postQueryString="false">
+      <con:settings>
+        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+      </con:settings>
+      <con:endpoint>http://localhost:5212/</con:endpoint>
+      <con:request>{ 
+	"price" : 1200
+}
+</con:request>
+      <con:originalUri>http://localhost/portfolio/2</con:originalUri>
+      <con:credentials>
+        <con:selectedAuthProfile>No Authorization</con:selectedAuthProfile>
+        <con:authType>No Authorization</con:authType>
+      </con:credentials>
+      <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+      <con:parameters>
+        <con:entry key="id" value="2"/>
+      </con:parameters>
+      <con:parameterOrder>
+        <con:entry>id</con:entry>
+      </con:parameterOrder>
+    </con:request>
+  </con:method>
+</con:resource>

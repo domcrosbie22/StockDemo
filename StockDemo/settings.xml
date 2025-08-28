@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con="http://eviware.com/soapui/config" xsi:type="con:RestService" id="a121b972-10c7-42a0-bd09-f5458bff661e" name="StockDemo" type="rest_ex" wadlVersion="https://swagger.io/openapiv3/specification">
+  <con:settings id="73e72824-4052-4a0d-94e0-0ff9487f1275">
+    <con:setting id="a121b972-10c7-42a0-bd09-f5458bff661efileName">StockDemo</con:setting>
+  </con:settings>
+  <con:definitionCache type="TEXT" rootPart="StockDemo.json">
+    <con:part>
+      <con:url>StockDemo.json</con:url>
+      <con:content>{"openapi":"3.1.0","info":{"title":"StockDemo","description":"","version":"1.0.0"},"servers":[{"url":"/"}],"paths":{"/portfolio/{id}":{"description":"","get":{"description":"","responses":{"default":{"description":"Default response"}}},"post":{"description":"","requestBody":{"content":{"application/json":{"example":"{ \n\t\"price\" : 1200\n}\n"}}},"responses":{"default":{"description":"Default response"}}},"parameters":[{"name":"id","in":"path","required":true,"style":"simple","explode":false}]}}}</con:content>
+      <con:type>https://swagger.io/openapiv3/specification</con:type>
+    </con:part>
+  </con:definitionCache>
+  <con:endpoints>
+    <con:endpoint>http://localhost:5212/</con:endpoint>
+    <con:endpoint>http://localhost:8088/</con:endpoint>
+    <con:endpoint>http://localhost:8089/</con:endpoint>
+  </con:endpoints>
+</con:interface>
