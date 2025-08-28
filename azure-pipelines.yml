@@ -1,34 +1,71 @@
 # Azure DevOps Pipeline for TestEngine
+# Trigger on pushes to specific branches and paths
 trigger:
-- main
+  branches:
+    include:
+      - main
+      - develop
+      - feature/*
+      - release/*
+  paths:
+    include:
+      - src/*
+      - tests/readyapi/*
+    exclude:
+      - docs/*
+      - README.md
 
 pool:
   vmImage: 'windows-latest'  # Use Windows for ReadyAPI/TestEngine
 
 variables:
-  # Store your TestEngine connection details as pipeline variables
-  testEngineUrl: 'http://localhost:8080'  # Change to your TestEngine URL
-  projectPath: 'tests/readyapi/StockDemo'  # Repository-relative path
+  testEngineUrl: 'http://localhost:8080'  # Replace with actual TestEngine URL
+  projectPath: 'StockDemo'                # Folder name of the ReadyAPI project
 
 steps:
 - checkout: self
   displayName: 'Checkout Repository'
 
+- powershell: |
+    Write-Host "=== DEBUGGING PROJECT STRUCTURE ==="
+    Write-Host "Working Directory: $(System.DefaultWorkingDirectory)"
+    Write-Host "Build.SourcesDirectory: $(Build.SourcesDirectory)"
+    Write-Host ""
+
+    Write-Host "=== ROOT DIRECTORY CONTENTS ==="
+    Get-ChildItem "$(System.DefaultWorkingDirectory)" | ForEach-Object { 
+        Write-Host "$($_.Name) - $($_.PSIsContainer)"
+    }
+    Write-Host ""
+
+    Write-Host "=== LOOKING FOR READYAPI PROJECT FILES ==="
+    Get-ChildItem "$(System.DefaultWorkingDirectory)" -Filter "*.xml" -Recurse | ForEach-Object {
+        Write-Host "Found XML: $($_.FullName)"
+    }
+
+    Write-Host "=== LOOKING FOR PROJECT FOLDERS ==="
+    Get-ChildItem "$(System.DefaultWorkingDirectory)" -Directory | ForEach-Object {
+        Write-Host "Checking folder: $($_.FullName)"
+        $xmlFiles = Get-ChildItem $_.FullName -Filter "*project*.xml" -ErrorAction SilentlyContinue
+        if ($xmlFiles) {
+            foreach ($xml in $xmlFiles) {
+                Write-Host "  -> Found project file: $($xml.FullName)"
+            }
+        }
+    }
+  displayName: 'Debug: Find ReadyAPI Project Files'
+
 - task: TestEngine@1
   displayName: 'Run ReadyAPI Tests'
   inputs:
-    # Use repository-relative path instead of local machine path
-    filePath: '$(System.DefaultWorkingDirectory)/$(projectPath)'
-    testType: 'functionalTest'
-    testSuiteName: 'Data driven Test'
-    testCaseName: 'Day Trading Warnings'
-    
-    # TestEngine connection settings (add these)
-    serverUrl: 'http://localhost:8080/'
-    username: 'admin'     # Set as pipeline variable
-    password: 'password'     # Set as pipeline variable (secret)
-    
-    # Optional: Enable result publishing
-    publishTestResults: true
-    saveJUnitReport: true
-    junitReportFilename: 'readyapi-results.xml'
+    projectFile: '$(System.DefaultWorkingDirectory)/StockDemo/settings.xml'  # Update path based on actual location
+    testSuite: 'Data driven Test'
+    testCase: 'Day Trading Warnings'
+    testEngineUrl: '$(testEngineUrl)'
+    username: 'admin'
+    password: 'password'
+    outputFolder: '$(Agent.TempDirectory)/readyapi-results'
+    junitReport: true
+    environment: ''
+    projectPassword: ''
+    tags: ''
